@@ -4,6 +4,7 @@ export const foodcontext = createContext(null);
 function FoodContext(props) {
   const [data, setData] = useState([]);
   return (
+
     <>
       <foodcontext.Provider value={{data, setData}}>
         {props.children}

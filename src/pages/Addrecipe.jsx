@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {foodcontext} from "../context/FoodContext";
 import {nanoid} from "nanoid";
@@ -32,14 +32,15 @@ function Addrecipe() {
     recipeData.ingredients = ingredients;
     setData([...data, recipeData]);
     console.log(recipeData);
-    console.log(data, "newData");
     
 
     reset();
     setIngredients([]);
     toast.success("New Recipe Added");
   };
-
+useEffect(()=>{
+  console.log(data, "newData");
+},[data])
   const back = () => {
     navigate("/");
   };
