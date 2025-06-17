@@ -11,9 +11,9 @@ function MainRoutes() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/add" element={<Addrecipe />} />
+        <Route path="/allRecipy" element={<Allrecipes />} />
         <Route path="/planner" element={<Mealplanner />} />
         <Route path="/quick" element={<Quickcook />} />
-        <Route path="/allRecipy" element={<Allrecipes />} />
       </Routes>
     </>
   );

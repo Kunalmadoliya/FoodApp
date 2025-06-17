@@ -4,7 +4,7 @@ function MainMenu() {
   return (
     <>
       <div className="flex border flex-col gap-1 h-screen w-1/5">
-      <h1 className="px-8 py-2">MAIN MENU</h1>
+        <h1 className="px-8 py-2">MAIN MENU</h1>
         <NavLink
           to="/"
           className={({isActive}) =>
@@ -28,6 +28,16 @@ function MainMenu() {
         </NavLink>
 
         <NavLink
+          to="/allRecipy"
+          className={({isActive}) =>
+            `flex items-center gap-2 px-4 py-2 rounded ${
+              isActive ? "text-gray-500 font-semibold" : "hover:bg-gray-100"
+            }`
+          }
+        >
+          <i className="ri-book-open-line"></i> All Recipes
+        </NavLink>
+        <NavLink
           to="/planner"
           className={({isActive}) =>
             `flex items-center gap-2 px-4 py-2 rounded ${
@@ -47,17 +57,6 @@ function MainMenu() {
           }
         >
           <i className="ri-time-line"></i> Quick Cook
-        </NavLink>
-
-        <NavLink
-          to="/allRecipy"
-          className={({isActive}) =>
-            `flex items-center gap-2 px-4 py-2 rounded ${
-              isActive ? "text-gray-500 font-semibold" : "hover:bg-gray-100"
-            }`
-          }
-        >
-          <i className="ri-book-open-line"></i> All Recipes
         </NavLink>
       </div>
     </>
