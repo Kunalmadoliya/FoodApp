@@ -1,14 +1,9 @@
 import {useNavigate} from "react-router-dom";
 import SearchComp from "../components/SearchComp";
-import {useEffect} from "react";
-
 
 function Dashboard() {
   let navigate = useNavigate();
 
-  useEffect(() => {
-    <SearchComp />;
-  }, []);
   return (
     <>
       <div className="w-full min-h-screen space-y-7 bg-gray-50 py-10 px-4 flex flex-col items-center">
@@ -32,7 +27,6 @@ function Dashboard() {
             </button>
           </div>
         </div>
-
         {/* toal-recipe */}
         <div className=" w-full">
           <SearchComp />

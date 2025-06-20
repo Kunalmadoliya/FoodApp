@@ -34,8 +34,12 @@ function Addrecipe() {
       imgUrl,
       id: nanoid(),
     };
+   
+    const updateData = [...data,newRecipe]
+    setData(updateData)
 
-    setData((prev) => [...prev, newRecipe]);
+    localStorage.setItem("recipe" , JSON.stringify(updateData))
+    
     toast.success("New Recipe Added");
 
     reset();
@@ -47,6 +51,7 @@ function Addrecipe() {
   useEffect(() => {
     console.log(data, "newData");
   }, [data]);
+
   const back = () => {
     navigate("/");
   };
@@ -58,11 +63,12 @@ function Addrecipe() {
   const handleInstrctions = () => {
     setInstruction([...instructions, {title: "", description: ""}]);
   };
+
   return (
     <>
       <div className="w-full min-h-screen bg-gray-50 py-10 px-4 flex flex-col items-center">
         {/* Top Navigation */}
-        <div className="w-4/5 flex items-center justify-between ">
+        <div className="w-full max-w-5xl flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <button
             onClick={back}
             className="text-sm font-semibold text-gray-600 hover:bg-gray-100 h-10 rounded-md px-3 flex items-center gap-1"
@@ -80,8 +86,8 @@ function Addrecipe() {
         </div>
 
         {/* Page Title */}
-        <div className="text-center  mb-4">
-          <h1 className="w-4/5 text-3xl font-bold mb-1">Create Recipe</h1>
+        <div className="text-center mb-4 w-full max-w-5xl">
+          <h1 className="text-3xl font-bold mb-1">Create Recipe</h1>
           <p>
             Fill in the details below to add your delicious recipe to the
             collection
@@ -89,7 +95,7 @@ function Addrecipe() {
         </div>
 
         {/* Form Card */}
-        <div className="w-4/5 bg-white border rounded-lg p-6 shadow">
+        <div className="w-full max-w-5xl bg-white border rounded-lg p-6 shadow">
           <h1 className="text-2xl font-semibold mb-3 flex gap-1 items-center pb-2">
             <i className="ri-information-line text-orange-500"></i>
             Basic Information
@@ -101,7 +107,7 @@ function Addrecipe() {
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-6"
           >
-            <div className="flex gap-8">
+            <div className="flex flex-col lg:flex-row gap-8">
               {/* Left Column */}
               <div className="flex-1 space-y-6">
                 {/* Title */}
@@ -141,7 +147,7 @@ function Addrecipe() {
                 </div>
 
                 {/* Category and Difficulty */}
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex flex-col flex-1">
                     <label className="mb-1 text-sm font-medium">
                       Category *
@@ -181,8 +187,8 @@ function Addrecipe() {
                 </div>
 
                 {/* Times */}
-                <div className="flex gap-4">
-                  <div className="flex flex-col w-32">
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex flex-col w-full sm:w-32">
                     <label className="mb-1 text-sm font-medium">
                       Cook Time
                     </label>
@@ -193,7 +199,7 @@ function Addrecipe() {
                       placeholder="e.g., 30 min"
                     />
                   </div>
-                  <div className="flex flex-col w-32">
+                  <div className="flex flex-col w-full sm:w-32">
                     <label className="mb-1 text-sm font-medium">
                       Prep Time
                     </label>
@@ -204,7 +210,7 @@ function Addrecipe() {
                       placeholder="e.g., 20 min"
                     />
                   </div>
-                  <div className="flex flex-col w-32">
+                  <div className="flex flex-col w-full sm:w-32">
                     <label className="mb-1 text-sm font-medium">
                       Total Time
                     </label>
@@ -219,7 +225,7 @@ function Addrecipe() {
               </div>
 
               {/* Right Column - Image URL */}
-              <div className="w-1/2 space-y-1">
+              <div className="w-full lg:w-1/2 space-y-1">
                 <h1 className="mb-1 text-sm font-medium flex items-center gap-2">
                   <i className="ri-image-line"></i>
                   Recipe Image URL
@@ -250,7 +256,8 @@ function Addrecipe() {
           </form>
         </div>
 
-        <div className=" w-4/5 mt-5 bg-white border rounded-lg p-6 shadow ">
+        {/* Ingredients Section */}
+        <div className="w-full max-w-5xl mt-5 bg-white border rounded-lg p-6 shadow">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold mb-3 flex gap-1 items-center pb-2">
               🥕 Ingredients
@@ -269,15 +276,14 @@ function Addrecipe() {
             {ingredients.map((items, index) => (
               <div
                 key={index}
-                className="flex h-10 items-center gap-5 mt-3 rounded-md px-5 py-8  bg-gray-50"
+                className="flex h-10 items-center gap-5 mt-3 rounded-md px-5 py-8 bg-gray-50"
               >
                 <p className="text-orange-500 h-10 w-10 justify-center bg-orange-200 flex items-center text-center rounded-full">
                   {index + 1}
                 </p>
                 <input
                   placeholder="Ingredient name (e.g., All-purpose flour)"
-                  className="border px-3 border-gray-300 w-full h-10 rounded-md "
-                  key={index}
+                  className="border px-3 border-gray-300 w-full h-10 rounded-md"
                   onChange={(e) => {
                     const updated = [...ingredients];
                     updated[index] = e.target.value;
@@ -289,7 +295,8 @@ function Addrecipe() {
           </div>
         </div>
 
-        <div className=" w-4/5 mt-5 bg-white border rounded-lg p-6 shadow ">
+        {/* Instructions Section */}
+        <div className="w-full max-w-5xl mt-5 bg-white border rounded-lg p-6 shadow">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold mb-3 flex gap-1 items-center pb-2">
               📝 Instructions
@@ -309,7 +316,7 @@ function Addrecipe() {
             {instructions.map((items, index) => (
               <div
                 key={index}
-                className="flex h-50 items-center gap-5 mt-3 rounded-md px-5 py-8  bg-gray-50"
+                className="flex flex-col md:flex-row md:items-center gap-5 mt-3 rounded-md px-5 py-8 bg-gray-50"
               >
                 <p className="text-orange-500 h-10 w-10 justify-center bg-orange-200 flex items-center text-center rounded-full">
                   {index + 1}
@@ -317,8 +324,7 @@ function Addrecipe() {
                 <div className="w-full">
                   <input
                     placeholder="Step 1 title (e.g., Preheat oven)"
-                    className="border px-3 border-gray-300 w-full h-10 rounded-md "
-                    key={index}
+                    className="border px-3 border-gray-300 w-full h-10 rounded-md"
                     onChange={(e) => {
                       const updated = [...instructions];
                       updated[index].title = e.target.value;
@@ -327,7 +333,7 @@ function Addrecipe() {
                   />
                   <input
                     placeholder="Detailed instructions for step 1... Be specific about timing, temperature, and technique."
-                    className="border mt-3 px-3 border-gray-300 w-full h-30 rounded-md  "
+                    className="border mt-3 px-3 border-gray-300 w-full h-30 rounded-md"
                     onChange={(e) => {
                       const updated = [...instructions];
                       updated[index].description = e.target.value;

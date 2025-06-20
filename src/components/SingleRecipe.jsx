@@ -1,11 +1,13 @@
 import React, {useContext, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {foodcontext} from "../context/FoodContext";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
+import {useEffect} from "react";
+import Allrecipes from "../pages/Allrecipes";
 
 function SingleRecipe() {
   const navigate = useNavigate();
-  const {data} = useContext(foodcontext);
+  const {data, setData} = useContext(foodcontext);
   const params = useParams();
 
   const recipe = data.find((recipe) => params.id == recipe.id);
@@ -13,6 +15,19 @@ function SingleRecipe() {
   console.log(data, params.id);
 
   const [active, setActive] = useState(false);
+
+  const handleDelete = () => {
+    const filterData = data.filter((recipe) => recipe.id !== params.id);
+    setData(filterData);
+    if (data.length > 0) {
+      toast.success("recipe deleted");
+    }
+    localStorage.setItem("recipe" , JSON.stringify(filterData))
+ 
+    navigate(-1)
+  };
+
+  
 
   return (
     <>
@@ -30,14 +45,17 @@ function SingleRecipe() {
               className="bg-white text-[#EA712E] border border-gray-300 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-100"
               onClick={() => setActive(!active)}
             >
-              {active
-                ? (<i class="ri-heart-line"></i>)
-                : (<i class="ri-heart-fill"></i>)}
+              {active ? (
+                <i class="ri-heart-line"></i>
+              ) : (
+                <i class="ri-heart-fill"></i>
+              )}
             </button>
 
             <button
-            onClick={() => toast.success("recipe deleted")}
-             className="bg-white text-[#EA712E] border border-gray-300 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-100">
+              onClick={handleDelete}
+              className="bg-white text-[#EA712E] border border-gray-300 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-100"
+            >
               <i className="ri-delete-bin-line"></i>
             </button>
           </div>
