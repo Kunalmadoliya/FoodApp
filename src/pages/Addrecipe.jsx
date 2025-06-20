@@ -22,25 +22,31 @@ function Addrecipe() {
   } = useForm();
 
   const onSubmit = (recipeData) => {
-    if (ingredients.length < 1 || ingredients[0].trim === "") {
+    if (ingredients.length < 1 || ingredients[0].trim() === "") {
       toast.error("Atleast add one ingredient");
       return;
     }
 
-    recipeData.id = nanoid();
-    recipeData.instructions = instructions;
-    recipeData.ingredients = ingredients;
-    setData([...data, recipeData]);
-    console.log(recipeData);
-    
+    const newRecipe = {
+      ...recipeData,
+      ingredients,
+      instructions,
+      imgUrl,
+      id: nanoid(),
+    };
+
+    setData((prev) => [...prev, newRecipe]);
+    toast.success("New Recipe Added");
 
     reset();
+    setimgUrl("");
+    setInstruction([{title: "", description: ""}]);
     setIngredients([]);
-    toast.success("New Recipe Added");
   };
-useEffect(()=>{
-  console.log(data, "newData");
-},[data])
+
+  useEffect(() => {
+    console.log(data, "newData");
+  }, [data]);
   const back = () => {
     navigate("/");
   };
@@ -120,7 +126,7 @@ useEffect(()=>{
                   <label className="mb-1 text-sm font-medium">
                     Description *
                   </label>
-                  <input
+                  <textarea
                     className="border h-10 px-3 rounded-md"
                     {...register("Description", {
                       required: "Description is Required",
@@ -261,7 +267,10 @@ useEffect(()=>{
           </p>
           <div className="mt-5">
             {ingredients.map((items, index) => (
-              <div key={index} className="flex h-10 items-center gap-5 mt-3 rounded-md px-5 py-8  bg-gray-50">
+              <div
+                key={index}
+                className="flex h-10 items-center gap-5 mt-3 rounded-md px-5 py-8  bg-gray-50"
+              >
                 <p className="text-orange-500 h-10 w-10 justify-center bg-orange-200 flex items-center text-center rounded-full">
                   {index + 1}
                 </p>
@@ -319,7 +328,6 @@ useEffect(()=>{
                   <input
                     placeholder="Detailed instructions for step 1... Be specific about timing, temperature, and technique."
                     className="border mt-3 px-3 border-gray-300 w-full h-30 rounded-md  "
-              
                     onChange={(e) => {
                       const updated = [...instructions];
                       updated[index].description = e.target.value;
