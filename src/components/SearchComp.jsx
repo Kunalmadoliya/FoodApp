@@ -1,24 +1,22 @@
-import React, {useContext, useEffect, useState} from "react";
-import {foodcontext} from "../context/FoodContext";
+import React, { useContext, useState } from "react";
+import { foodcontext } from "../context/FoodContext";
 import RecipeCard from "./RecipeCard";
-import {Navigate, useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SearchComp() {
-  const {data} = useContext(foodcontext);
+  const { data } = useContext(foodcontext);
   const [input, setInput] = useState("");
-
-  const navigte = useNavigate();
+  const navigate = useNavigate();
 
   const filterSearch = data.filter((items) =>
     items.Title.toLowerCase().startsWith(input.toLowerCase())
   );
 
   return (
-    <div className="h-full space-y-6">
-      {/* Search & Filters */}
+    <div className="min-h-screen space-y-6 px-4 py-6">
+      {/* Search Bar */}
       <div className="bg-white h-20 flex items-center p-4 rounded-lg shadow">
-        {/* Search Bar (Full Width) */}
-        <div className="w-2/4">
+        <div className="w-full max-w-md">
           <input
             type="text"
             placeholder="Search recipes..."
@@ -36,17 +34,16 @@ function SearchComp() {
         </button>
       </div>
 
-      {/* Recipe Results or Empty State */}
-      <div className="flex items-center text-center">
-        
+      {/* Recipe Grid or Empty State */}
+      <div >
         {filterSearch.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filterSearch.map((items) => (
               <RecipeCard key={items.id} recipe={items} />
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-lg h-full w-full  p-10 flex flex-col items-center text-center justify-center shadow-sm mt-4">
+          <div className="bg-white  rounded-lg p-10 flex flex-col items-center text-center justify-center shadow-sm mt-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-16 w-16 text-gray-400 mb-4"
@@ -68,7 +65,7 @@ function SearchComp() {
               Get started by adding your first recipe
             </p>
             <button
-              onClick={() => navigte("/add")}
+              onClick={() => navigate("/add")}
               className="bg-gradient-to-r from-orange-400 to-red-500 text-white px-5 py-2 rounded-md font-medium hover:opacity-90 transition"
             >
               Add Your First Recipe

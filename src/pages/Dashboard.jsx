@@ -6,7 +6,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className="w-full min-h-screen space-y-7 bg-gray-50 py-10 px-4 flex flex-col items-center">
+      <div className="w-full min-h-screen  bg-gray-50 px-6 py-10 flex flex-col items-center">
         {/* header */}
 
         <div className="w-full flex justify-between">

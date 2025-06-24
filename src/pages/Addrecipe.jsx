@@ -38,7 +38,6 @@ function Addrecipe() {
     const updateData = [...data,newRecipe]
     setData(updateData)
 
-    localStorage.setItem("recipe" , JSON.stringify(updateData))
     
     toast.success("New Recipe Added");
 
@@ -63,6 +62,10 @@ function Addrecipe() {
   const handleInstrctions = () => {
     setInstruction([...instructions, {title: "", description: ""}]);
   };
+
+  console.log(typeof(ingredients));
+  
+  
 
   return (
     <>

@@ -14,56 +14,61 @@ const RecipeCard = ({ recipe }) => {
   } = recipe;
 
   return (
-    <>
-    
-    <Link to={`/recipes/details/${id}`}>
+    <Link to={`/recipes/details/${id}`} className="w-full max-w-sm">
+      <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col h-full">
+        {/* Top Image */}
+        {img && (
+          <div className="relative h-48 w-full">
+            <img
+              src={img}
+              alt={Title}
+              className="object-cover w-full h-full rounded-t-2xl"
+            />
+            {category && (
+              <span className="absolute capitalize top-2 right-2 bg-white text-gray-800 text-xs font-medium px-3 py-1 rounded-full shadow-sm">
+                {category}
+              </span>
+            )}
+          </div>
+        )}
 
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all w-full max-w-sm">
-      
-      {/* Top image section */}
-      {img && (
-        <div className="relative h-56 w-full">
-          <img
-            src={img}
-            alt={Title}
-            className="object-cover h-full w-full"
-          />
-          {category && (
-            <div className="absolute top-2 right-2 bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">
-              {category}
+        {/* Card Content */}
+        <div className="flex flex-col justify-between flex-1 p-4">
+          <div>
+            {/* Title */}
+            <h2 className="text-lg font-semibold mb-1 text-gray-800">{Title}</h2>
+
+            {/* Description */}
+            <p className="text-gray-600 text-sm mb-3  h-15 line-clamp-2">
+              {Description}
+            </p>
+
+            {/* Difficulty Tag */}
+            {Difficulty && (
+              <div className="text-xs capitalize text-gray-500 mb-3">
+                <span className="bg-gray-100 px-2 py-1 rounded-full">
+                  ⚙️ {Difficulty}
+                </span>
+              </div>
+            )}
+
+            {/* Timing Info */}
+            <div className="text-gray-500 text-sm flex flex-wrap gap-3">
+              {preptime && <span>Prep: {preptime}</span>}
+              {cooktime && <span>Cook: {cooktime}</span>}
+              {totaltime && <span>Total: {totaltime}</span>}
             </div>
-          )}
+          </div>
+
+          {/* Button */}
+          <div className="mt-4">
+            <button className="w-full bg-gradient-to-r from-orange-400 to-red-400 text-white text-sm font-semibold py-2 rounded-lg hover:opacity-90 transition">
+              View Recipe
+            </button>
+          </div>
         </div>
-      )}
-
-      {/* Card content */}
-      <div className="p-4">
-        {/* Title */}
-        <h2 className="text-lg font-semibold mb-1">{Title}</h2>
-
-        {/* Description */}
-        <p className="text-gray-600 text-sm mb-3">{Description}</p>
-
-        {/* Tags */}
-        <div className="flex gap-2 text-xs text-gray-500 mb-3">
-          {Difficulty && <span className="bg-gray-100 px-2 py-1 rounded-full">⚙️ {Difficulty}</span>}
-        </div>
-
-        {/* Timing info */}
-        <div className="text-gray-500 text-sm flex gap-4 mb-4">
-          {preptime && <span>Prep: {preptime}</span>}
-          {cooktime && <span>Cook: {cooktime}</span>}
-          {totaltime && <span>Total: {totaltime}</span>}
-        </div>
-
-        {/* View Recipe button */}
-        <button className="w-full bg-gradient-to-r from-orange-400 to-red-400 text-white text-sm font-semibold py-2 rounded-lg hover:opacity-90">
-          View Recipe
-        </button>
       </div>
-    </div>
     </Link>
-    </>
   );
 };
 
