@@ -15,8 +15,8 @@ function SearchComp() {
   return (
     <div className="min-h-screen space-y-6 px-4 py-6">
       {/* Search Bar */}
-      <div className="bg-white h-20 flex items-center p-4 rounded-lg shadow">
-        <div className="w-full max-w-md">
+      <div className="bg-white  h-20 flex items-center p-4 rounded-lg shadow">
+        <div className="w-full ">
           <input
             type="text"
             placeholder="Search recipes..."
